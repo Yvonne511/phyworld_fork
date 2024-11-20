@@ -1,4 +1,20 @@
-# Data Generation Code for PAPER [How Far is Video Generation from World Model: A Physical Law Perspective](https://phyworld.github.io/)
+<div align="center">
+<h1>How Far is Video Generation from World Model: A Physical Law Perspective</h1>
+
+[**Bingyi Kang**](https://bingykang.github.io/)<sup>\*</sup>   ·  [**Yang Yue**](https://yueyang130.github.io/)<sup>\*</sup> 
+<br>
+[**Rui Lu**](https://lr32768.github.io/) · [**Zhijie Lin**](https://scholar.google.com/citations?user=xXMj6_EAAAAJ&hl=zh-CN) · [**Yang Zhao**](https://scholar.google.com/citations?user=uPmTOHAAAAAJ&hl=en) · [**Kaixin Wang**](https://kaixin96.github.io/) · [**Gao Huang**](https://www.gaohuang.net/) · [**Jiashi Feng**](https://sites.google.com/site/jshfeng/)
+<br>
+*Equal Contribution, in alphabetical order
+
+<a href="https://arxiv.org/abs/2411.02385"><img src='https://img.shields.io/badge/arXiv-phyworld-red' alt='Paper PDF'></a>
+<a href='https://phyworld.github.io/'><img src='https://img.shields.io/badge/Project_Page-phyworld-green' alt='Project Page'></a>
+<a href='https://huggingface.co/datasets/magicr/phyworld'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-phyworld-blue'></a>
+</div>
+
+We conduct a systematic study to investigate whether video generation is able to learn physical laws from videos, leveraging data and model scaling.
+
+![Alt Text](./assets/teaser2x.gif)
 
 
 ## In-Distribution and Out-of-Distribution Data
@@ -50,7 +66,24 @@ python3 one_ball_parabola.py --data_for_vis
 
 ## Combinatorial Data
 
-We build combinatorial data generation on the [Phyre](https://github.com/facebookresearch/phyre/tree/main) codebase. Follow the installation instructions in the Phyre repository to set up the `combinatorial_data` directory.
+We build combinatorial data generation on the [Phyre](https://github.com/facebookresearch/phyre/tree/main) codebase. 
+
+For install the python env, run
+```
+# create conda env
+conda create --yes -n phyre python=3.9
+source activate phyre
+
+# install requirements
+conda install -c conda-forge sed nodejs=12 thrift-cpp=0.11.0 wget pybind11=2.6 cmake boost=1.75 setuptools pip --yes
+pip install matplotlib tqdm ipywidgets yapf==0.28.0
+
+# install our project
+cd combinatorial_data
+pip install -e src/python
+```
+
+We put our 70 templates 10000:10069 [here](https://github.com/phyworld/phyworld/tree/master/combinatorial_data/data/task_scripts/main) and complied bins [here](https://github.com/phyworld/phyworld/tree/master/combinatorial_data/data/generated_tasks).
 
 ### Training Data Generation from 60 Templates
 
@@ -73,10 +106,13 @@ To generate evaluation data from 10 reserved templates:
 python3 data_generator_v2.py --num_workers 64 --run_id 6 --data_dir ./eval
 ```
 
+## Evaluation
+
+Evaluation code to parse velocity and calculate error metrics from video data see here `id_ood_data/evaluate.py`.
+
 ## TODO
 
 - Data generation code for in-depth analysis
-- Evaluation code to parse velocity and calculate error metrics from video data
 
 
 ## Download Data
